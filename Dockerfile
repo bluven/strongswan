@@ -1,6 +1,6 @@
-FROM alpine:3.15 as builder
+FROM alpine:3.17 as builder
 
-ENV STRONGSWAN_RELEASE https://download.strongswan.org/old/5.x/strongswan-5.9.8.tar.bz2
+ENV STRONGSWAN_RELEASE https://download.strongswan.org/old/5.x/strongswan-5.9.9.tar.bz2
 
 RUN apk --update add build-base \
             curl \
@@ -18,7 +18,6 @@ RUN apk --update add build-base \
             --sysconfdir=/etc \
             --libexecdir=/usr/lib \
             --with-ipsecdir=/usr/lib/strongswan \
-            --enable-aesni \
             --enable-cmd \
             --enable-eap-identity \
             --enable-eap-md5 \
@@ -52,7 +51,7 @@ RUN apk --update add build-base \
     make install 
 
 
-FROM alpine:3.15
+FROM alpine:3.17
 
 RUN --mount=type=bind,from=builder,source=/,target=/builder cp -r /builder/etc/strongswan.d/ \
         /builder/etc/strongswan.conf \

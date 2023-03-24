@@ -1,9 +1,8 @@
 FROM alpine:3.15 as builder
 
-ENV STRONGSWAN_RELEASE https://download.strongswan.org/old/5.x/strongswan-5.9.9.tar.bz2
+ENV STRONGSWAN_RELEASE https://download.strongswan.org/old/5.x/strongswan-5.9.8.tar.bz2
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
-    apk --update add build-base \
+RUN apk --update add build-base \
             curl \
             clang \
             ca-certificates \

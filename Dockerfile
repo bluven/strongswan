@@ -1,8 +1,9 @@
 FROM alpine:3.15 as builder
 
-ENV STRONGSWAN_RELEASE https://download.strongswan.org/old/5.x/strongswan-5.9.9.tar.bz2
+ENV STRONGSWAN_RELEASE=https://download.strongswan.org/old/5.x/strongswan-5.9.9.tar.bz2
+ARG REPOSITORY_URL=mirrors.tuna.tsinghua.edu.cn
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
+RUN sed -i "s/dl-cdn.alpinelinux.org/$REPOSITORY_URL/g" /etc/apk/repositories && \
     apk --update add build-base \
             curl \
             clang \
@@ -34,7 +35,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/re
             --enable-eap-sim \
             --enable-eap-simaka-pseudonym \
             --enable-eap-simaka-reauth \
-            --enable-unity \
             --enable-xauth-eap \
             --enable-xauth-generic \
             --enable-mediation \

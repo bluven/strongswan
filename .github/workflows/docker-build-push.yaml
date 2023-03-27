@@ -33,4 +33,9 @@ jobs:
         context: .
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
-        tags: bluven/strongswan:5.9.9
+        tags: 
+        - bluven/strongswan:5.9.9
+        - bluven/strongswan:latest
+        build-args: |
+          REPOSITORY_URL=dl-cdn.alpinelinux.org
+        

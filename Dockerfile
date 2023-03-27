@@ -1,6 +1,7 @@
-FROM alpine:3.17 as builder
+FROM alpine:3.15 as builder
 
-ENV STRONGSWAN_RELEASE https://download.strongswan.org/old/5.x/strongswan-5.9.9.tar.bz2
+ENV STRONGSWAN_RELEASE=https://download.strongswan.org/old/5.x/strongswan-5.9.9.tar.bz2
+ARG REPOSITORY_URL=mirrors.tuna.tsinghua.edu.cn
 
 RUN apk --update add build-base \
             curl \
@@ -32,7 +33,6 @@ RUN apk --update add build-base \
             --enable-eap-sim \
             --enable-eap-simaka-pseudonym \
             --enable-eap-simaka-reauth \
-            --enable-unity \
             --enable-xauth-eap \
             --enable-xauth-generic \
             --enable-mediation \
@@ -51,7 +51,7 @@ RUN apk --update add build-base \
     make install 
 
 
-FROM alpine:3.17
+FROM alpine:3.15
 
 RUN --mount=type=bind,from=builder,source=/,target=/builder cp -r /builder/etc/strongswan.d/ \
         /builder/etc/strongswan.conf \
